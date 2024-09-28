@@ -1,6 +1,11 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useLocation, Link, Outlet } from "react-router-dom";
-import { getMovieDetailis, getImageUrl } from "../servises/FakeApi";
+import {
+  getMovieDetailis,
+  getMoviesReview,
+  getImageUrl,
+  getMoviesCredits,
+} from "../servises/FakeApi";
 
 const MovieDeteilisPage = () => {
   const { movieId } = useParams();
@@ -10,6 +15,8 @@ const MovieDeteilisPage = () => {
 
   useEffect(() => {
     getMovieDetailis(movieId).then(setMovie);
+    getMoviesCredits(movieId).then(setMovie);
+    getMoviesReview(movieId).then(setMovie);
   }, [movieId]);
   if (!movie) return null;
 
@@ -18,8 +25,11 @@ const MovieDeteilisPage = () => {
       <Link to={backLink.current}>Go back</Link>
       <h2>{movie.title}</h2>
       <img src={getImageUrl(movie.poster_path)} alt={movie.title} width="250" />
-      <p>{movie.overview}</p>
+      <p>Description: {movie.overview}</p>
       <p>Rating: {movie.vote_average}</p>
+      <p>
+        Year: {movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
+      </p>
       <Link to={`/movies/${movieId}/cast`}>Cast</Link>
       <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
       <Outlet />
