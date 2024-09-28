@@ -1,11 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useLocation, Link, Outlet } from "react-router-dom";
-import {
-  getMovieDetailis,
-  getMoviesReview,
-  getImageUrl,
-  getMoviesCredits,
-} from "../servises/FakeApi";
+import { getMovieDetailis, getImageUrl } from "../servises/FakeApi";
 
 const MovieDeteilisPage = () => {
   const { movieId } = useParams();
@@ -15,8 +10,6 @@ const MovieDeteilisPage = () => {
 
   useEffect(() => {
     getMovieDetailis(movieId).then(setMovie);
-    getMoviesCredits(movieId).then(setMovie);
-    getMoviesReview(movieId).then(setMovie);
   }, [movieId]);
   if (!movie) return null;
 

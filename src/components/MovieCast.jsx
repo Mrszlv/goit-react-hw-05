@@ -1,14 +1,22 @@
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { getMoviesCredits } from "../servises/FakeApi";
+
 const defaultImg =
   "https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster";
 
-const MovieCast = ({ cast }) => {
-  if (!cast || cast / length === 0) {
-    return <p>No cast info!</p>;
-  }
+const MovieCast = () => {
+  const { movieId } = useParams();
+  const [cast, setCast] = useState([]);
+
+  useEffect(() => {
+    getMoviesCredits(movieId).then(setCast);
+  }, [cast, movieId]);
+
   return (
     <ul>
       {cast.map((actor) => (
-        <li key={actor.id}>
+        <li key={actor.cast_id}>
           <p>{actor.name}</p>
           <img
             src={
@@ -17,7 +25,6 @@ const MovieCast = ({ cast }) => {
                 : defaultImg
             }
             alt={actor.name}
-            width="100"
           />
         </li>
       ))}
