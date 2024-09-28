@@ -23,8 +23,10 @@ const MovieDeteilisPage = () => {
       <p>
         Year: {movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
       </p>
-      <Link to={`/movies/${movieId}/cast`}>Cast</Link>
-      <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+      <nav>
+        <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+        <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+      </nav>
       <Outlet />
     </>
   );

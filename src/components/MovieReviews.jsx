@@ -5,14 +5,41 @@ import { getMoviesReview } from "../servises/FakeApi";
 const MovieReviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+
+  // useEffect(() => {
+  //   setLoading(true);
+  //   setError(null);
+  //   getMoviesReview(movieId)
+  //     .then(setReviews)
+  //     .catch(() => {
+  //       setError("Failed to load reviews. Please try again later!");
+  //     })
+  //     .finally(() => setLoading(false));
+  // }, [movieId]);
 
   useEffect(() => {
-    getMoviesReview(movieId).then(setReviews);
-  }, [reviews, movieId]);
+    setLoading(true);
+    setError(null);
+    const getReview = async () => {
+      try {
+        const data = await getMoviesReview();
+        setReviews(data);
+        console.log(data);
+      } catch {
+        setError("Failed reviews");
+      } finally {
+        setLoading(false);
+      }
+    };
+    getReview();
+  }, [movieId]);
 
   return (
-    <div>
-      <h3>Reviews</h3>
+    <>
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
       <ul>
         {reviews.map((review) => (
           <li key={review.id}>
@@ -21,7 +48,7 @@ const MovieReviews = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </>
   );
 };
 export default MovieReviews;
