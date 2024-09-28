@@ -1,26 +1,23 @@
-import { useSearchParams } from "react-router-dom";
+import { Formik, Form, Field } from "formik";
 
-const SearchForm = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const query = e.target.element.query.value.trim();
-    if (query) {
-      setSearchParams({ query });
-    }
+const SearchForm = ({ handleQuery }) => {
+  const initialValues = {
+    query: "",
   };
+  const handleSubmit = (values, { resetForm }) => {
+    handleQuery(values.query);
+    resetForm();
+  };
+
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="query"
-        placeholder="Enter..."
-        defaultValue={searchParams.get("query") || ""}
-      />
-      <button type="submit">Search</button>
-    </form>
+    <div>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        <Form>
+          <Field name="query" />
+          <button type="submit">Search</button>
+        </Form>
+      </Formik>
+    </div>
   );
 };
-
 export default SearchForm;

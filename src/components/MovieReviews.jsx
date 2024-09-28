@@ -1,29 +1,19 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getMoviesReviev } from "../servises/FakeApi";
-
-const MovieReviews = () => {
-  const { moveId } = useParams();
-  const [reviews, setReviews] = useState([]);
-
-  useEffect(() => {
-    getMoviesReviev(moveId).then(setReviews);
-  }, [moveId]);
-
+const MovieReviews = ({ reviews }) => {
+  if (!reviews || reviews.length === 0) {
+    return <p>No reviews info!</p>;
+  }
   return (
-    <ul>
-      {reviews.length === 0 ? (
-        <p>No reviews validate</p>
-      ) : (
-        reviews.map((review) => (
+    <div>
+      <h3>Reviews</h3>
+      <ul>
+        {reviews.map((review) => (
           <li key={review.id}>
-            <p>{review.author}</p>
+            <h4>{review.author}</h4>
             <p>{review.content}</p>
           </li>
-        ))
-      )}
-    </ul>
+        ))}
+      </ul>
+    </div>
   );
 };
-
 export default MovieReviews;

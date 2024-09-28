@@ -6,7 +6,11 @@ const HomePage = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    getTrendingMovies().then(setMovies);
+    const getAllMobies = async () => {
+      const data = await getTrendingMovies();
+      setMovies(data);
+    };
+    getAllMobies();
   }, []);
 
   return (

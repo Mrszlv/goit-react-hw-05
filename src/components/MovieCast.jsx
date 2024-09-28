@@ -1,19 +1,10 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { getMoviesCredits } from "../servises/FakeApi";
-
 const defaultImg =
   "https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster";
 
-const MovieCast = () => {
-  const { moveId } = useParams();
-  const [cast, setCast] = useState([]);
-
-  useEffect(() => {
-    if (!moveId) return;
-    getMoviesCredits(moveId).then(setCast);
-  }, [moveId]);
-
+const MovieCast = ({ cast }) => {
+  if (!cast || cast / length === 0) {
+    return <p>No cast info!</p>;
+  }
   return (
     <ul>
       {cast.map((actor) => (
@@ -33,5 +24,4 @@ const MovieCast = () => {
     </ul>
   );
 };
-
 export default MovieCast;

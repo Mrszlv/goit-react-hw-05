@@ -1,30 +1,45 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { searchMovies } from "../servises/FakeApi";
-import MovieList from "../components/MovieList";
 import SearchForm from "../components/SearchForm";
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
-  const [searchParams] = useSearchParams();
-  const submitQuery = searchParams.get("query");
+  const [query, setQuery] = useState("");
+  const [error, setError] = useState(false);
+
+  const handleQuery = (newQuery) => {
+    setQuery(newQuery);
+  };
 
   useEffect(() => {
-    const featchMovies = async () => {
-      if (!submitQuery) return;
-      try {
-        const response = await searchMovies(submitQuery);
-        setMovies(response);
-      } catch (error) {
-        alert(error);
-      }
-    };
-    featchMovies();
-  }, [submitQuery]);
+    if (query.trim()) {
+      const getMoviesQuery = async () => {
+        try {
+          const results = await searchMovies(query);
+          setMovies(results);
+        } catch {
+          setError("Failed!");
+        }
+      };
+      getMoviesQuery();
+    } else {
+      setMovies([]);
+    }
+  }, [query]);
 
   return (
     <>
-      <SearchForm />
-      <MovieList movies={movies} />
+      <SearchForm handleQuery={handleQuery} />
+      <h2>Results</h2>
+      {error && <p>{error}</p>}
+
+      <ul>
+        {movies.map((movie) => (
+          <li key={movie.id}>
+            <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+          </li>
+        ))}
+      </ul>
     </>
   );
 };

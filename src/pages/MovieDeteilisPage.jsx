@@ -19,14 +19,9 @@ const MovieDeteilisPage = () => {
       <h2>{movie.title}</h2>
       <img src={getImageUrl(movie.poster_path)} alt={movie.title} width="250" />
       <p>{movie.overview}</p>
-      <ul>
-        <li>
-          <Link to="cast">Cast</Link>
-        </li>
-        <li>
-          <Link to="reviews">Reviews</Link>
-        </li>
-      </ul>
+      <p>Rating: {movie.vote_average}</p>
+      <Link to={`/movies/${movieId}/cast`}>Cast</Link>
+      <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
       <Outlet />
     </>
   );
