@@ -1,0 +1,28 @@
+.nav {
+  background-color: grey;
+  display: flex;
+  justify-content: flex-start;
+  gap: 50px;
+  padding: 10px;
+  padding-left: 80px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.link {
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  background-color: rgb(172, 187, 202);
+  color: black;
+}
+
+.link:hover {
+  background-color: brown;
+  color: aliceblue;
+}
+
+.active {
+  background-color: brown;
+  color: antiquewhite;
+}

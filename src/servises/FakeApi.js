@@ -51,7 +51,7 @@ export const getMoviesReview = async (movieId) => {
     `/movie/${movieId}/reviews?language=en-US&page=1&api_key=${API_KEY}`,
     options
   );
-  return data.reviews;
+  return data.results;
 };
 
 export const getImageUrl = (path) => {

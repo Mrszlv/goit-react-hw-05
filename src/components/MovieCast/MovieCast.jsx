@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getMoviesCredits } from "../servises/FakeApi";
+import { getMoviesCredits } from "../../servises/FakeApi";
+import s from "./MovieCast.module.css";
 
 const defaultImg =
   "https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster";
@@ -33,10 +34,10 @@ const MovieCast = () => {
   return (
     <>
       {loading && <p>Loading...</p>}
-      <ul>
+      <ul className={s.list}>
         {cast.map((actor) => (
-          <li key={actor.cast_id}>
-            <p>{actor.name}</p>
+          <li key={actor.cast_id} className={s.item}>
+            <p className={s.text}>{actor.name}</p>
             <img
               src={
                 actor.profile_path
@@ -44,6 +45,7 @@ const MovieCast = () => {
                   : defaultImg
               }
               alt={actor.name}
+              className={s.img}
             />
           </li>
         ))}

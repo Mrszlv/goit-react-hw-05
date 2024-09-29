@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getMoviesReview } from "../servises/FakeApi";
+import { getMoviesReview } from "../../servises/FakeApi";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
@@ -8,25 +8,13 @@ const MovieReviews = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   setError(null);
-  //   getMoviesReview(movieId)
-  //     .then(setReviews)
-  //     .catch(() => {
-  //       setError("Failed to load reviews. Please try again later!");
-  //     })
-  //     .finally(() => setLoading(false));
-  // }, [movieId]);
-
   useEffect(() => {
     setLoading(true);
     setError(null);
     const getReview = async () => {
       try {
-        const data = await getMoviesReview();
+        const data = await getMoviesReview(movieId);
         setReviews(data);
-        console.log(data);
       } catch {
         setError("Failed reviews");
       } finally {

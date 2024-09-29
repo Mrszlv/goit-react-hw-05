@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { searchMovies } from "../servises/FakeApi";
-import SearchForm from "../components/SearchForm";
+import { searchMovies } from "../../servises/FakeApi";
+import SearchForm from "../../components/SearchForm/SearchForm";
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState("");

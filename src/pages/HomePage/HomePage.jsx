@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { getTrendingMovies } from "../servises/FakeApi";
-import MovieList from "../components/MovieList";
+import { getTrendingMovies } from "../../servises/FakeApi";
+import MovieList from "../../components/MovieLIst/MovieList";
+import s from "./HomePage.module.css";
 
 const HomePage = () => {
   const [movies, setMovies] = useState([]);
@@ -25,7 +26,7 @@ const HomePage = () => {
 
   return (
     <>
-      <h2>Treands Movies</h2>
+      <h2 className={s.title}>Treands Movies</h2>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       <MovieList movies={movies} />
