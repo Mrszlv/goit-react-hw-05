@@ -1,7 +1,12 @@
 import { useState, useEffect, useRef } from "react";
-import { useParams, useLocation, Link, Outlet } from "react-router-dom";
+import { useParams, useLocation, NavLink, Outlet } from "react-router-dom";
 import { getMovieDetailis, getImageUrl } from "../../servises/FakeApi";
 import s from "./MovieDeteilisPage.module.css";
+import clsx from "clsx";
+
+const buildLinkClass = ({ isActive }) => {
+  return clsx(s.link, isActive && s.active);
+};
 
 const MovieDeteilisPage = () => {
   const { movieId } = useParams();
@@ -16,7 +21,9 @@ const MovieDeteilisPage = () => {
 
   return (
     <div className={s.wrapp}>
-      <Link to={backLink.current}>Go back</Link>
+      <NavLink to={backLink.current} className={buildLinkClass}>
+        Go back
+      </NavLink>
       <h2 className={s.title}>{movie.title}</h2>
       <img
         src={getImageUrl(movie.poster_path)}
@@ -25,21 +32,24 @@ const MovieDeteilisPage = () => {
         className={s.img}
       />
       <p className={s.text}>
-        {" "}
-        <span className={s.span}>Description: </span>
-        {movie.overview}
+        Description: <span className={s.span}>{movie.overview}</span>
       </p>
       <p className={s.text}>
-        {" "}
-        <span className={s.span}>Rating:</span> {movie.vote_average}
+        Rating: <span className={s.span}>{movie.vote_average}</span>
       </p>
       <p className={s.text}>
-        <span className={s.span}>Year: </span>{" "}
-        {movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
+        Year:{" "}
+        <span className={s.span}>
+          {movie.release_date ? movie.release_date.split("-")[0] : "N/A"}
+        </span>
       </p>
       <nav className={s.nav}>
-        <Link to={`/movies/${movieId}/cast`}>Cast</Link>
-        <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
+        <NavLink to={`/movies/${movieId}/cast`} className={buildLinkClass}>
+          Cast
+        </NavLink>
+        <NavLink to={`/movies/${movieId}/reviews`} className={buildLinkClass}>
+          Reviews
+        </NavLink>
       </nav>
       <Outlet />
     </div>

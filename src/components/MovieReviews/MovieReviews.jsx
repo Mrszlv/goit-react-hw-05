@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getMoviesReview } from "../../servises/FakeApi";
+import s from "./MovieReviews.module.css";
+import Loader from "../Loader/Loader";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
@@ -26,13 +28,13 @@ const MovieReviews = () => {
 
   return (
     <>
-      {loading && <p>Loading...</p>}
+      {loading && <Loader />}
       {error && <p>{error}</p>}
       <ul>
         {reviews.map((review) => (
           <li key={review.id}>
-            <p>{review.author}</p>
-            <p>{review.content}</p>
+            <p className={s.author}>{review.author}</p>
+            <p className={s.text}>{review.content}</p>
           </li>
         ))}
       </ul>
