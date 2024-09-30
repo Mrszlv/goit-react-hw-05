@@ -29,7 +29,7 @@ const MovieReviews = () => {
   return (
     <>
       {loading && <Loader />}
-      {error && <p>{error}</p>}
+      {error && <p>Tis movie has no reviews.</p>}
       <ul>
         {reviews.map((review) => (
           <li key={review.id}>
