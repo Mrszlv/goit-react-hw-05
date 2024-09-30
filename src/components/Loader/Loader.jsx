@@ -4,10 +4,10 @@ const Loader = () => (
   <div className={s.load}>
     <RotatingLines
       visible={true}
-      height="60"
-      width="60"
-      color="#9ACD32"
-      strokeWidth="5"
+      height="30"
+      width="30"
+      strokeColor="grey"
+      strokeWidth="2"
       animationDuration="0.75"
       ariaLabel="rotating-lines-loading"
       wrapperStyle={{}}

@@ -3,6 +3,7 @@ import { useParams, useLocation, NavLink, Outlet } from "react-router-dom";
 import { getMovieDetailis, getImageUrl } from "../../servises/FakeApi";
 import s from "./MovieDeteilisPage.module.css";
 import clsx from "clsx";
+import Loader from "../../components/Loader/Loader";
 
 const buildLinkClass = ({ isActive }) => {
   return clsx(s.link, isActive && s.active);
@@ -11,11 +12,20 @@ const buildLinkClass = ({ isActive }) => {
 const MovieDeteilisPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const backLink = useRef(location.state?.form || "/movies");
 
   useEffect(() => {
-    getMovieDetailis(movieId).then(setMovie);
+    setError(null);
+    setLoading(true);
+    getMovieDetailis(movieId)
+      .then(setMovie)
+      .catch(() => {
+        setError("Movie not found!");
+      })
+      .finally(() => setLoading(false));
   }, [movieId]);
   if (!movie) return null;
 
@@ -24,6 +34,8 @@ const MovieDeteilisPage = () => {
       <NavLink to={backLink.current} className={buildLinkClass}>
         Go back
       </NavLink>
+      {loading && <Loader />}
+      {error && <p>{error}</p>}
       <h2 className={s.title}>{movie.title}</h2>
       <img
         src={getImageUrl(movie.poster_path)}
