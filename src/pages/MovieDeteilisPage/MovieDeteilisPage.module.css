@@ -1,10 +1,29 @@
+.wrapp {
+  margin: 0 auto;
+  border: 5px solid;
+  border-radius: 10px;
+  padding: 20px;
+}
+
 .title {
   margin-bottom: 10px;
-  margin-top: 20px;
+}
+
+.imgWrapp {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.textWrapp {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
 }
 
 .img {
-  width: 80%;
+  width: 400px;
   height: 600px;
   object-fit: cover;
   margin-bottom: 20px;

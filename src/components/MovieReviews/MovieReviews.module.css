@@ -1,3 +1,9 @@
+.wrapp {
+  border: 2px solid;
+  padding: 16px;
+  border-radius: 10px;
+}
+
 .author {
   font-weight: bold;
 }

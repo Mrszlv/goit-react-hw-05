@@ -3,7 +3,6 @@ import axios from "axios";
 const API_KEY = "3db584ba3492fe864ddf5e2fe5a73cb2";
 
 axios.defaults.baseURL = "https://api.themoviedb.org/3";
-const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 const options = {
   headers: {
@@ -52,10 +51,4 @@ export const getMoviesReview = async (movieId) => {
     options
   );
   return data.results;
-};
-
-export const getImageUrl = (path) => {
-  return path
-    ? `${IMAGE_URL}${path}`
-    : "https://dummyimage.com/400x600/cdcdcd/000jpg&text=No+poster";
 };

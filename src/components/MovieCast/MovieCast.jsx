@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getMoviesCredits } from "../../servises/FakeApi";
 import s from "./MovieCast.module.css";
-import Loader from "../Loader/Loader";
 
 const defaultImg =
   "https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster";
@@ -10,21 +9,18 @@ const defaultImg =
 const MovieCast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
     setError(null);
     getMoviesCredits(movieId)
       .then(setCast)
       .catch(() => {
         setError("Failed to load cast. Please try again later!");
       })
-      .finally(() => setLoading(false));
+      .finally();
   }, [movieId]);
 
-  // }
   if (error) {
     return <p>{error}</p>;
   }
@@ -33,8 +29,8 @@ const MovieCast = () => {
   }
 
   return (
-    <>
-      {loading && <Loader />}
+    <div className={s.wrapp}>
+      <h3>Actors:</h3>
       <ul className={s.list}>
         {cast.map((actor) => (
           <li key={actor.cast_id} className={s.item}>
@@ -51,7 +47,7 @@ const MovieCast = () => {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 export default MovieCast;

@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getMoviesReview } from "../../servises/FakeApi";
 import s from "./MovieReviews.module.css";
-import Loader from "../Loader/Loader";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
@@ -11,6 +10,7 @@ const MovieReviews = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    if (!movieId) return;
     setLoading(true);
     setError(null);
     const getReview = async () => {
@@ -26,10 +26,12 @@ const MovieReviews = () => {
     getReview();
   }, [movieId]);
 
+  if (!reviews || reviews.length === 0) {
+    return <p>No reviews</p>;
+  }
   return (
-    <>
-      {loading && <Loader />}
-      {error && <p>Tis movie has no reviews.</p>}
+    <div className={s.wrapp}>
+      <h3>Reviews:</h3>
       <ul>
         {reviews.map((review) => (
           <li key={review.id}>
@@ -38,7 +40,7 @@ const MovieReviews = () => {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 };
 export default MovieReviews;

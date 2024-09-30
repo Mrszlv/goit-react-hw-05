@@ -44,10 +44,8 @@ const MoviesPage = () => {
   return (
     <>
       <SearchForm handleQuery={handleQuery} />
-      <h2 className={s.title}>Results</h2>
       {loading && <Loader />}
       {error && <p>{error}</p>}
-
       <ul className={s.list}>
         {movies.map((movie) => (
           <li key={movie.id} className={s.item}>
