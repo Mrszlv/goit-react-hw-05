@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useLocation, NavLink, Outlet } from "react-router-dom";
-import { getMovieDetailis } from "../../servises/api";
-import s from "./MovieDetailisPage.module.css";
+import { getMovieDetails } from "../../servises/api";
+import s from "./MovieDetailsPage.module.css";
 import clsx from "clsx";
 
 const buildLinkClass = ({ isActive }) => {
@@ -21,7 +21,7 @@ const MovieDetailisPage = () => {
 
   useEffect(() => {
     setError(null);
-    getMovieDetailis(movieId)
+    getMovieDetails(movieId)
       .then(setMovie)
       .catch(() => {
         setError("Movie not found!");
