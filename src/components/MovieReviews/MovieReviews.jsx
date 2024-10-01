@@ -1,17 +1,16 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getMoviesReview } from "../../servises/FakeApi";
+import { getMoviesReview } from "../../servises/api";
 import s from "./MovieReviews.module.css";
 
 const MovieReviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     if (!movieId) return;
-    setLoading(true);
+
     setError(null);
     const getReview = async () => {
       try {
@@ -19,8 +18,6 @@ const MovieReviews = () => {
         setReviews(data);
       } catch {
         setError("Failed reviews");
-      } finally {
-        setLoading(false);
       }
     };
     getReview();
@@ -32,6 +29,7 @@ const MovieReviews = () => {
   return (
     <div className={s.wrapp}>
       <h3>Reviews:</h3>
+      {error && <p>{error}</p>}
       <ul>
         {reviews.map((review) => (
           <li key={review.id}>

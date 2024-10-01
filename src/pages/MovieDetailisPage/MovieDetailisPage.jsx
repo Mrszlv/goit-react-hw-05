@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useParams, useLocation, NavLink, Outlet } from "react-router-dom";
-import { getMovieDetailis } from "../../servises/FakeApi";
-import s from "./MovieDeteilisPage.module.css";
+import { getMovieDetailis } from "../../servises/api";
+import s from "./MovieDetailisPage.module.css";
 import clsx from "clsx";
 
 const buildLinkClass = ({ isActive }) => {
@@ -11,7 +11,7 @@ const buildLinkClass = ({ isActive }) => {
 const defaultImg =
   "https://dummyimage.com/400x600/cdcdcd/000.jpg&text=No+poster";
 
-const MovieDeteilisPage = () => {
+const MovieDetailisPage = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
@@ -83,4 +83,4 @@ const MovieDeteilisPage = () => {
   );
 };
 
-export default MovieDeteilisPage;
+export default MovieDetailisPage;

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getMoviesCredits } from "../../servises/FakeApi";
+import { getMoviesCredits } from "../../servises/api";
 import s from "./MovieCast.module.css";
 
 const defaultImg =

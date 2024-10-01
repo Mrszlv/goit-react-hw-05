@@ -1,23 +1,24 @@
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { searchMovies } from "../../servises/FakeApi";
+import { useSearchParams } from "react-router-dom";
+import { searchMovies } from "../../servises/api";
 import SearchForm from "../../components/SearchForm/SearchForm";
 import s from "./MoviesPage.module.css";
-import clsx from "clsx";
 import Loader from "../../components/Loader/Loader";
-
-const buildLinkClass = ({ isActive }) => {
-  return clsx(s.link, isActive && s.active);
-};
+import MovieList from "../../components/MovieList/MovieList";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("query") || "";
 
   const handleQuery = (newQuery) => {
-    setQuery(newQuery);
+    if (newQuery === "") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ query: newQuery });
+    }
   };
 
   useEffect(() => {
@@ -42,20 +43,12 @@ const MoviesPage = () => {
   }, [query]);
 
   return (
-    <>
+    <div className={s.wrapp}>
       <SearchForm handleQuery={handleQuery} />
       {loading && <Loader />}
       {error && <p>{error}</p>}
-      <ul className={s.list}>
-        {movies.map((movie) => (
-          <li key={movie.id} className={s.item}>
-            <NavLink to={`/movies/${movie.id}`} className={buildLinkClass}>
-              {movie.title}
-            </NavLink>
-          </li>
-        ))}
-      </ul>
-    </>
+      {movies.length > 0 && <MovieList movies={movies} />}
+    </div>
   );
 };
 
